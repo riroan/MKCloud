@@ -44,6 +44,7 @@ public class FileService {
         savedFile.setFileSize(fileSize);
         savedFile.setOwner("test");
         savedFile.setUploadTime(LocalDateTime.now());
+        savedFile.setStoreFileName(storeFileName);
 
         fileRepository.save(savedFile);
     }
@@ -54,11 +55,15 @@ public class FileService {
         }
     }
 
+    public FileEntity findOne(Long id) {
+        return fileRepository.findById(id);
+    }
+
     public List<FileEntity> findAll() {
         return fileRepository.findAll();
     }
 
-    private String getFullPath(String filename) {
+    public String getFullPath(String filename) {
         return fileDir + filename;
     }
 
