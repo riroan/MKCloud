@@ -1,5 +1,6 @@
 package com.openbox.backend.domain;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -9,14 +10,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "file")
 public class FileEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_id")
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String fileName;
+
+    @NotBlank
+    private String storeFileName;
 
     @NotNull
     @Positive
@@ -27,4 +35,16 @@ public class FileEntity {
 
     @NotNull
     private LocalDateTime uploadTime;
+
+    public FileEntity() {
+        this.uploadTime = LocalDateTime.now();
+    }
+
+    public FileEntity(final String fileName, final String storeFileName, final Long fileSize, final String owner) {
+        this.fileName = fileName;
+        this.storeFileName = storeFileName;
+        this.fileSize = fileSize;
+        this.owner = owner;
+        this.uploadTime = LocalDateTime.now();
+    }
 }

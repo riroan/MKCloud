@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class MemoryFileRepository implements FileRepository {
     Map<Long, FileEntity> store = new HashMap<>();
     Long sequence = 0L;
@@ -40,5 +40,9 @@ public class MemoryFileRepository implements FileRepository {
     @Override
     public List<FileEntity> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    public void clearStore(){
+        store.clear();
     }
 }
