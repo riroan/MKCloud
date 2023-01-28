@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class JpaFileRepository implements FileRepository{
+public class JpaFileRepository implements FileRepository {
     private final JpaFileDao jpaFileDao;
 
     @Override
@@ -35,5 +35,10 @@ public class JpaFileRepository implements FileRepository{
     public List<FileEntity> findAll() {
         List<FileEntity> result = jpaFileDao.findAll();
         return result;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        jpaFileDao.deleteById(id);
     }
 }

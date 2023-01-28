@@ -13,5 +13,5 @@ public interface FileRepository {
 
     List<FileEntity> findAll();
 
-
+    void deleteById(Long id);
 }

@@ -55,6 +55,10 @@ public class FileService {
         }
     }
 
+    public void deleteOne(Long id){
+        fileRepository.deleteById(id);
+    }
+
     public FileEntity findOne(Long id) {
         return fileRepository.findById(id);
     }
