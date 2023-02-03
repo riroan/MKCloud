@@ -24,7 +24,7 @@ public class FileService {
 
     private final FileRepository fileRepository;
 
-    public void save(MultipartFile multipartFile) {
+    public void save(MultipartFile multipartFile, String owner) {
         if (multipartFile.isEmpty()) {
             return;
         }
@@ -33,30 +33,47 @@ public class FileService {
         Long fileSize = multipartFile.getSize();
 
         String storeFileName = createStoreFileName(originalFileName);
+        String fullPath = getFullPath(storeFileName, owner);
+        String folderPath = getFullPath("", owner);
+        File folder = new File(folderPath);
+        if (folder.mkdirs()) {
+            log.info("new folder created, path = {}", folderPath);
+        }
 
         try {
-            multipartFile.transferTo(new File(getFullPath(storeFileName)));
+            multipartFile.transferTo(new File(fullPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         savedFile.setFileName(originalFileName);
         savedFile.setFileSize(fileSize);
-        savedFile.setOwner("test");
+        savedFile.setOwner(owner);
         savedFile.setUploadTime(LocalDateTime.now());
         savedFile.setStoreFileName(storeFileName);
 
         fileRepository.save(savedFile);
     }
 
-    public void saveAll(List<MultipartFile> multipartFiles) {
+    public void saveAll(List<MultipartFile> multipartFiles, String owner) {
         for (MultipartFile multipartFile : multipartFiles) {
-            save(multipartFile);
+            save(multipartFile, owner);
         }
     }
 
-    public void deleteOne(Long id){
+    public void deleteOne(Long id, String owner) {
+        FileEntity file = fileRepository.findById(id);
+        if (file == null) {
+            throw new RuntimeException("파일이 존재하지 않습니다.");
+        }
+        if (!file.getOwner().equals(owner)) {
+            throw new RuntimeException("사용자의 파일이 아닙니다.");
+        }
         fileRepository.deleteById(id);
+    }
+
+    public List<FileEntity> findByOwner(String owner) {
+        return fileRepository.findByOwner(owner);
     }
 
     public FileEntity findOne(Long id) {
@@ -67,8 +84,8 @@ public class FileService {
         return fileRepository.findAll();
     }
 
-    public String getFullPath(String filename) {
-        return fileDir + filename;
+    public String getFullPath(String filename, String owner) {
+        return fileDir + owner + "/" + filename;
     }
 
     private String createStoreFileName(String originalFilename) {
