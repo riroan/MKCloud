@@ -1,11 +1,8 @@
 package com.openbox.backend.controller;
 
-import com.openbox.backend.controller.dto.SaveFileRequest;
 import com.openbox.backend.domain.FileEntity;
 import com.openbox.backend.service.FileService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.Part;
+import com.openbox.backend.support.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -18,10 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -32,31 +28,38 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/save")
-    public String save(List<MultipartFile> multipartFiles) {
+    public ResponseEntity<Void> save(@Login String user, List<MultipartFile> multipartFiles) {
+        log.info("user : {}", user);
         if (multipartFiles == null) {
             log.info("no files");
-            return "REJECT";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         for (MultipartFile multipartFile : multipartFiles) {
             log.info("file = {}", multipartFile);
         }
-        fileService.saveAll(multipartFiles);
-        return "123aa";
+        fileService.saveAll(multipartFiles, user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<FileEntity>> getAll() {
-        List<FileEntity> result = fileService.findAll();
+    public ResponseEntity<List<FileEntity>> getAll(@Login String user) {
+        log.info("user : {}", user);
+        List<FileEntity> result = fileService.findByOwner(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/download/{fileId}")
-    public ResponseEntity<Resource> downloadOne(@PathVariable Long fileId) throws MalformedURLException {
+    public ResponseEntity<Resource> downloadOne(@Login String user, @PathVariable Long fileId) throws MalformedURLException {
         FileEntity file = fileService.findOne(fileId); // ! TODO :  NoFileException
+
+        if(!file.getOwner().equals(user)){
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
         String storeFileName = file.getStoreFileName();
         String fileName = file.getFileName();
 
-        UrlResource resource = new UrlResource("file:" + fileService.getFullPath(storeFileName));
+        UrlResource resource = new UrlResource("file:" + fileService.getFullPath(storeFileName, user));
         log.info("uploadFileName={}", fileName);
         String encodedFileName = UriUtils.encode(fileName, StandardCharsets.UTF_8);
 
@@ -67,11 +70,11 @@ public class FileController {
     }
 
     @DeleteMapping("/{fileId}")
-    public ResponseEntity<Long> deleteOne(@PathVariable Long fileId) {
+    public ResponseEntity<Void> deleteOne(@Login String user, @PathVariable Long fileId) {
         log.info("delete {}", fileId);
         FileEntity file = fileService.findOne(fileId); // ! TODO :  NoFileException
         String storeFileName = file.getStoreFileName();
-        String fullPath = fileService.getFullPath(storeFileName);
+        String fullPath = fileService.getFullPath(storeFileName, user);
 
         File target = new File(fullPath);
         if (target.exists()) {
@@ -83,8 +86,7 @@ public class FileController {
         } else {
             log.info("No such file {}", fullPath);
         }
-        fileService.deleteOne(fileId);
-        return ResponseEntity.ok()
-                .body(fileId);
+        fileService.deleteOne(fileId, user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
