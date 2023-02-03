@@ -2,16 +2,15 @@ package com.openbox.backend.repository;
 
 import com.openbox.backend.domain.FileEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -81,5 +80,17 @@ class FileRepositoryTest {
 
         List<FileEntity> result3 = fileRepository.findByOwner("user3");
         assertThat(result3).containsExactly(savedFile3);
+    }
+
+    @Test
+    @DisplayName(value = "파일 하나 삭제")
+    void deleteOne(){
+        FileEntity file1 = new FileEntity("file1.jpg", "store_file1.jpg", 10L, "user1");
+        FileEntity savedFile = fileRepository.save(file1);
+
+        fileRepository.deleteById(savedFile.getId());
+
+        assertThatThrownBy(()->fileRepository.findById(savedFile.getId()))
+                .isInstanceOf(NoSuchElementException.class);
     }
 }
