@@ -8,10 +8,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Enumeration;
+import java.util.Iterator;
+
 
 @Slf4j
 @RequiredArgsConstructor
-public class LoginInterceptor implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
@@ -19,18 +22,21 @@ public class LoginInterceptor implements HandlerInterceptor{
         log.info("method : {}", request.getMethod());
         log.info("path : {}", request.getContextPath());
         log.info("url : {}", request.getRequestURI());
+        String method = request.getMethod();
+        if (method.equals("OPTIONS")) {
+            return true;
+        }
+
         Cookie[] cookies = request.getCookies();
         String token = null;
         for (Cookie cookie : cookies) {
             String name = cookie.getName();
-            log.info("name={}", name);
-            if(name.equals("mkcloud_authentication")){
+            if (name.equals("mkcloud_authentication")) {
                 token = cookie.getValue();
-                log.info("token = {}", token);
                 break;
             }
         }
-        if(token == null) {
+        if (token == null) {
             // login 필요
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
@@ -38,7 +44,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         try {
             String subject = jwtTokenProvider.getSubject(token);
             return true;
-        }catch(RuntimeException e){
+        } catch (RuntimeException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
