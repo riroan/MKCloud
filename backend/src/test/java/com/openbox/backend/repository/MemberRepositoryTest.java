@@ -73,4 +73,17 @@ class MemberRepositoryTest {
         assertThat(memberRepository.checkLoginInfo("test1", "fakePassword")).isEqualTo(true);
     }
 
+    @Test
+    @DisplayName(value = "비밀번호 변경")
+    void changePassword() {
+        String id = "user1";
+        String password = "old";
+        String newPassword= "new";
+
+        MemberEntity member = memberRepository.register(id, password);
+        memberRepository.changePassword(id, newPassword);
+
+        assertThat(member.getPassword()).isEqualTo(newPassword);
+    }
+
 }
