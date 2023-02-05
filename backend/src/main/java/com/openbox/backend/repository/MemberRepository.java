@@ -10,4 +10,6 @@ public interface MemberRepository {
     Boolean existedById(String id);
 
     Boolean checkLoginInfo(String id, String password);
+
+    void changePassword(String id, String password);
 }

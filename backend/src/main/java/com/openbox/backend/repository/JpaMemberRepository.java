@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class JpaMemberRepository implements MemberRepository{
@@ -23,7 +25,7 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public MemberEntity findById(String id) {
-        MemberEntity member = jpaMemberDao.findById(id);
+        MemberEntity member = jpaMemberDao.findById(id).orElseThrow();
         return member;
     }
 
@@ -35,5 +37,12 @@ public class JpaMemberRepository implements MemberRepository{
     @Override
     public Boolean checkLoginInfo(String id, String password) {
         return jpaMemberDao.existsByIdAndPassword(id, password);
+    }
+
+    @Override
+    public void changePassword(String id, String password) {
+        MemberEntity findMember = jpaMemberDao.findById(id).orElseThrow();
+        findMember.setPassword(password);
+        jpaMemberDao.save(findMember);
     }
 }

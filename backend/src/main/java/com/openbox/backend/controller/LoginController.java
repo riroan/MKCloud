@@ -1,8 +1,10 @@
 package com.openbox.backend.controller;
 
 import com.openbox.backend.controller.dto.LoginRequest;
+import com.openbox.backend.controller.dto.UserResponse;
 import com.openbox.backend.domain.MemberEntity;
 import com.openbox.backend.service.MemberService;
+import com.openbox.backend.support.Login;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -56,6 +58,23 @@ public class LoginController {
         expireCookie(response, "authentication");
         expireCookie(response, "key");
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/password")
+    public ResponseEntity<Void> changePassword(@Login String user, @RequestBody LoginRequest loginRequest) {
+        String newPassword = loginRequest.getPassword();
+        log.info("password-> {}", newPassword);
+        memberService.changePassword(user, newPassword);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<UserResponse> getId(@Login String user) {
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(user);
+        userResponse.setCapacity(1024 * 1024 * 1024 * 10L);
+        userResponse.setUsed(1024 * 1024 * 512L);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
     private void expireCookie(HttpServletResponse response, String cookieName) {

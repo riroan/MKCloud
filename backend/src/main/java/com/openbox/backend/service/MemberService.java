@@ -22,8 +22,11 @@ public class MemberService {
         return memberRepository.checkLoginInfo(id, password);
     }
 
-    public String createToken(String id){
+    public String createToken(String id) {
         return jwtTokenProvider.createToken(id);
     }
 
+    public void changePassword(String id, String newPassword) {
+        memberRepository.changePassword(id, newPassword);
+    }
 }

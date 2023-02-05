@@ -50,4 +50,9 @@ public class MemoryMemberRepository implements MemberRepository {
         store.clear();
         sequence = 0L;
     }
+
+    @Override
+    public void changePassword(String id, String password) {
+
+    }
 }
