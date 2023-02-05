@@ -29,3 +29,23 @@ export default async function call(api: string, method: string, headers?: Header
 			return Promise.reject(err)
 		})
 }
+
+export function convertFileSize(size: number) {
+	let ix = 0
+	const unit = ['byte', 'KB', 'MB', 'GB']
+	while (size >= 1024) {
+		size /= 1024
+		ix++
+		size = Math.round(size * 100) / 100
+	}
+	return size.toFixed(2) + unit[ix]
+}
+
+export function dateFormat(date: Date) {
+	let month = date.getMonth() + 1
+	let day = date.getDate()
+	const hour = date.getHours()
+	const minute = date.getMinutes()
+
+	return date.getFullYear() + '/' + month + '/' + day + ' ' + hour + ':' + minute
+}
