@@ -1,0 +1,15 @@
+.side {
+	width: 250px;
+}
+
+.container {
+	display: flex;
+}
+
+.main{
+    position:fixed;
+    width: calc(100% - 250px);
+    left: 250px;
+    // background-color: aqua;
+    height:100%;
+}

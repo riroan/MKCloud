@@ -1,0 +1,35 @@
+.container {
+	display: flex;
+	// background-color: yellow;
+    font-size: 17px;
+    padding:15px;
+}
+
+.container:hover{
+	cursor:pointer;
+}
+
+.id {
+	width: 5%;
+	text-align: center;
+}
+
+.fileName {
+	width: 55%;
+	text-align: center;
+}
+
+.fileSize {
+	width: 10%;
+	text-align: center;
+}
+
+.owner {
+	width: 10%;
+	text-align: center;
+}
+
+.uploadTime {
+	width: 20%;
+	text-align: center;
+}

@@ -1,0 +1,24 @@
+.container {
+	display: flex;
+	// background-color: yellow;
+	padding: 8px;
+	margin: 10px 0;
+}
+
+.container:hover {
+	background-color: #aaa;
+}
+
+.icon {
+	margin: 10px;
+	margin-left: 20px;
+	transform: scale(1.2);
+	// background-color: orange;
+}
+
+.content {
+	margin-left: 30px;
+	// background-color: green;
+	display: flex;
+	align-items: center;
+}

@@ -1,0 +1,36 @@
+.progress {
+	display: flex;
+	margin: 10px 20px;
+	padding: 10px;
+	align-items: center;
+}
+
+.value {
+	// background-color: yellow;
+	margin-right: 50px;
+	width: 200px;
+	letter-spacing: 1px;
+}
+
+.usage {
+	width: 70px;
+	margin-right: 10px;
+}
+
+.progressbar {
+	margin-right: 20px;
+	width: 100%;
+}
+
+.group {
+	width: 88%;
+	// background-color: orange;
+	margin: 10px auto;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.group > Button {
+	margin: 10px;
+	width: 100px;
+}

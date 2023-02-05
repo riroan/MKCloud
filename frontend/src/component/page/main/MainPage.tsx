@@ -1,51 +1,57 @@
-import React from 'react'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import React, { useState } from 'react'
+import styles from './MainPage.module.scss'
+import classnames from 'classnames/bind'
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress'
+import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
+import Template from '../../template/Template'
+import ItemTable from './ItemTable'
+import { Button } from '@mui/material'
+import call, { convertFileSize } from '../../utility/utility'
+import UserDTO from '../../dto/UserDTO'
+const cx = classnames.bind(styles)
 
-const columns: GridColDef[] = [
-	{ field: 'id', headerName: 'ID', flex: 0.5, align: 'center', headerAlign: 'center' },
-	{ field: 'fileName', headerName: '파일 명', flex: 2, align: 'center', headerAlign: 'center' },
-	{
-		field: 'fileSize',
-		headerName: '파일 크기',
-		flex: 0.5,
-		align: 'center',
-		headerAlign: 'center',
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+	height: 10,
+	borderRadius: 5,
+	[`&.${linearProgressClasses.colorPrimary}`]: {
+		backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
 	},
-	{
-		field: 'owner',
-		headerName: '소유자',
-		flex: 1,
-		align: 'center',
-		headerAlign: 'center',
+	[`& .${linearProgressClasses.bar}`]: {
+		borderRadius: 5,
+		backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
 	},
-	{
-		field: 'uploadTime',
-		headerName: '업로드 시각',
-		flex: 1,
-		type: 'date',
-		align: 'center',
-		headerAlign: 'center',
-	},
-]
-
-const rows = [
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-	{ id: 1, fileName: 'file1', fileSize: '164kb', owner: 'user1', uploadTime: 'yesterday' },
-]
+}))
 
 export default function MainPage() {
+	const [capacity, setCapacity] = useState(0)
+	const [used, setUsed] = useState(0)
+
+	React.useEffect(() => {
+		call('/id', 'GET')
+			.then(res => res.json())
+			.then((res: UserDTO) => {
+				setCapacity(res.capacity)
+				setUsed(res.used)
+			})
+	}, [])
 	return (
-		<div style={{ width: '80%', margin: 'auto' }}>
-			<DataGrid rows={rows} columns={columns} pageSize={10} rowsPerPageOptions={[5]} autoHeight></DataGrid>
-		</div>
+		<Template title="Drive">
+			<div className={cx('progress')}>
+				<Typography className={cx('usage')} variant="body1" color="text.primary">
+					사용량
+				</Typography>
+				<div className={cx('progressbar')}>
+					<BorderLinearProgress variant="determinate" value={(used / capacity) * 100} />
+				</div>
+				<Typography className={cx('value')} variant="body1" color="text.primary">{`${convertFileSize(used)}/${convertFileSize(capacity)}`}</Typography>
+			</div>
+
+			<div className={cx('group')}>
+				<Button variant="contained">업로드</Button>
+			</div>
+			<ItemTable />
+			
+		</Template>
 	)
 }

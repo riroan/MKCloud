@@ -1,0 +1,22 @@
+.container {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.item {
+	border-bottom: 1px solid black;
+}
+
+.title {
+	// background-color: green;
+	border-top: 1px solid black;
+	background-color: #1976d2;
+	color: white;
+	font-weight: 600;
+}
+
+.box {
+	position: relative;
+	height: 40vh;
+	// background-color: aqua;
+}
