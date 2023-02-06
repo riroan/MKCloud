@@ -28,6 +28,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
         String token = null;
         for (Cookie cookie : cookies) {
             String name = cookie.getName();
