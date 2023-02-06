@@ -8,7 +8,8 @@
 }
 
 .title {
-	// background-color: green;
+	// backgroud-color: green;
+	// width: calc(100% - 50px);
 	border-top: 1px solid black;
 	background-color: #1976d2;
 	color: white;
@@ -22,4 +23,5 @@
 	border-right: 1px solid #999;
 	border-left: 1px solid #999;
 	border-bottom: 1px solid #999;
+	overflow-y: overlay;
 }

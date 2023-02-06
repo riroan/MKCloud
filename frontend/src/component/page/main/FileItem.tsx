@@ -16,11 +16,11 @@ type FileItemProps = {
 export default function FileItem({ id, fileName, fileSize, owner, uploadTime, className, onClick }: FileItemProps) {
 	return (
 		<div onClick={onClick} className={cx('container', className)}>
-			<div className={cx('id')}>{id}</div>
-			<div className={cx('fileName')}>{fileName}</div>
-			<div className={cx('fileSize')}>{fileSize}</div>
-			<div className={cx('owner')}>{owner}</div>
-			<div className={cx('uploadTime')}>{uploadTime}</div>
+			<div className={cx('id', 'text')}>{id}</div>
+			<div className={cx('fileName', 'text')}>{fileName}</div>
+			<div className={cx('fileSize', 'text')}>{fileSize}</div>
+			<div className={cx('owner', 'text')}>{owner}</div>
+			<div className={cx('uploadTime', 'text')}>{uploadTime}</div>
 		</div>
 	)
 }
