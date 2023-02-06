@@ -59,6 +59,11 @@ export default function SignUp() {
 			setPasswordError(true)
 			setPasswordErrorMessage('비밀번호가 비어있습니다!')
 			valid = false
+		} else if (password.toString().match(/^[A-Za-z0-9]{8,20}$/) === null) {
+			console.log(password.toString())
+			setPasswordError(true)
+			setPasswordErrorMessage('비밀번호는 영문 숫자를 조합해 8자리 이상이어야 합니다!')
+			valid = false
 		}
 		if (!passwordCheck) {
 			setPasswordCheckError(true)
@@ -74,11 +79,11 @@ export default function SignUp() {
 			call('/register', 'POST', undefined, body, true).then(res => {
 				if (res.status === StatusCodes.BAD_REQUEST) {
 					setIdError(true)
-					setIdErrorMessage("이미 존재하는 아이디입니다!")
+					setIdErrorMessage('이미 존재하는 아이디입니다!')
 					return
 				}
-				console.log("회원가입 성공!")
-				window.location.href = "/login"
+				console.log('회원가입 성공!')
+				window.location.href = '/login'
 			})
 		}
 	}

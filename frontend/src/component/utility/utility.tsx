@@ -20,6 +20,7 @@ export default async function call(api: string, method: string, headers?: Header
 		.then(res => {
 			const code = res.status
 			if (code === StatusCodes.UNAUTHORIZED && redirect) {
+				alert("로그인이 필요한 서비스입니다.")
 				window.location.href = '/login'
 			}
 			return res

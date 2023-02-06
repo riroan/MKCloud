@@ -9,6 +9,7 @@ import ItemTable from './ItemTable'
 import { Button } from '@mui/material'
 import call, { convertFileSize } from '../../utility/utility'
 import UserDTO from '../../dto/UserDTO'
+import UploadModal from './UploadModal'
 const cx = classnames.bind(styles)
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -26,6 +27,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 export default function MainPage() {
 	const [capacity, setCapacity] = useState(0)
 	const [used, setUsed] = useState(0)
+	const [open, setOpen] = useState(false)
 
 	React.useEffect(() => {
 		call('/id', 'GET')
@@ -48,10 +50,12 @@ export default function MainPage() {
 			</div>
 
 			<div className={cx('group')}>
-				<Button variant="contained">업로드</Button>
+				<Button variant="contained" onClick={() => setOpen(true)}>
+					업로드
+				</Button>
 			</div>
 			<ItemTable />
-			
+			{open && <UploadModal setOpen={setOpen} used={used} capacity={capacity} />}
 		</Template>
 	)
 }
