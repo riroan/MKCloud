@@ -29,7 +29,6 @@ public class FileController {
 
     @PostMapping("/save")
     public ResponseEntity<Void> save(@Login String user, List<MultipartFile> multipartFiles) {
-        log.info("user : {}", user);
         if (multipartFiles == null) {
             log.info("no files");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
