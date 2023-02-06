@@ -13,5 +13,7 @@ public interface FileRepository {
 
     List<FileEntity> findAll();
 
+    Long getFileSizeSum(String owner);
+
     void deleteById(Long id);
 }

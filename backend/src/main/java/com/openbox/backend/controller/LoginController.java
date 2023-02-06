@@ -3,6 +3,7 @@ package com.openbox.backend.controller;
 import com.openbox.backend.controller.dto.LoginRequest;
 import com.openbox.backend.controller.dto.UserResponse;
 import com.openbox.backend.domain.MemberEntity;
+import com.openbox.backend.service.FileService;
 import com.openbox.backend.service.MemberService;
 import com.openbox.backend.support.Login;
 import jakarta.servlet.http.Cookie;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LoginController {
     private final MemberService memberService;
+    private final FileService fileService;
 
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
@@ -71,9 +73,11 @@ public class LoginController {
     @GetMapping("/id")
     public ResponseEntity<UserResponse> getId(@Login String user) {
         UserResponse userResponse = new UserResponse();
+        MemberEntity member = memberService.findById(user);
+        Long used = fileService.getFileSum(user);
         userResponse.setId(user);
-        userResponse.setCapacity(1024 * 1024 * 1024 * 10L);
-        userResponse.setUsed(1024 * 1024 * 512L);
+        userResponse.setCapacity(member.getCapacity());
+        userResponse.setUsed(used);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
@@ -82,5 +86,4 @@ public class LoginController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
-
 }

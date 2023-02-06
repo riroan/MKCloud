@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -82,6 +81,10 @@ public class FileService {
 
     public List<FileEntity> findAll() {
         return fileRepository.findAll();
+    }
+
+    public Long getFileSum(String owner) {
+        return fileRepository.getFileSizeSum(owner);
     }
 
     public String getFullPath(String filename, String owner) {

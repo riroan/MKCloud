@@ -38,6 +38,11 @@ public class JpaFileRepository implements FileRepository {
     }
 
     @Override
+    public Long getFileSizeSum(String owner) {
+        return jpaFileDao.getFileSizeSum(owner);
+    }
+
+    @Override
     public void deleteById(Long id) {
         jpaFileDao.deleteById(id);
     }

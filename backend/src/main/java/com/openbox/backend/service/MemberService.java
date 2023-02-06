@@ -1,5 +1,6 @@
 package com.openbox.backend.service;
 
+import com.openbox.backend.domain.MemberEntity;
 import com.openbox.backend.repository.MemberRepository;
 import com.openbox.backend.support.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,10 @@ public class MemberService {
             throw new RuntimeException("이미 존재하는 아이디입니다.");
         }
         memberRepository.register(id, password);
+    }
+
+    public MemberEntity findById(String id) {
+        return memberRepository.findById(id);
     }
 
     public Boolean checkLoginInfo(String id, String password) {

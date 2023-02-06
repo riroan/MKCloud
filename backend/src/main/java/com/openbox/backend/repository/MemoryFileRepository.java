@@ -49,5 +49,11 @@ public class MemoryFileRepository implements FileRepository {
 
     public void clearStore(){
         store.clear();
+        sequence = 0L;
+    }
+
+    @Override
+    public Long getFileSizeSum(String owner) {
+        return 0L;
     }
 }
