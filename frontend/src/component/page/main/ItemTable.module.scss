@@ -7,9 +7,11 @@
 	border-bottom: 1px solid black;
 }
 
+.item:not(.title):hover{
+	background-color: #ddd;
+}
+
 .title {
-	// backgroud-color: green;
-	// width: calc(100% - 50px);
 	border-top: 1px solid black;
 	background-color: #1976d2;
 	color: white;
@@ -19,7 +21,6 @@
 .box {
 	position: relative;
 	height: 70vh;
-	// background-color: aqua;
 	border-right: 1px solid #999;
 	border-left: 1px solid #999;
 	border-bottom: 1px solid #999;
