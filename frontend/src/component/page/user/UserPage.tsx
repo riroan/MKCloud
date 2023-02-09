@@ -9,7 +9,9 @@ import styles from './UserPage.module.scss'
 import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import Template from '../../template/Template'
-import UserDTO from '../../dto/UserDTO';
+import UserDTO from '../../dto/UserDTO'
+import crypto from 'crypto-js'
+
 const cx = classnames.bind(styles)
 
 export default function UserPage() {
@@ -42,10 +44,11 @@ export default function UserPage() {
 			valid = false
 		}
 		if (valid) {
-			const body = { password }
+			const pw = crypto.SHA512(password!.toString()).toString()
+			const body = { password: pw }
 			call('/password', 'POST', undefined, body, true).then(res => {
 				window.location.href = '/user'
-				alert("비밀번호가 변경되었습니다.")
+				alert('비밀번호가 변경되었습니다.')
 			})
 		}
 	}
@@ -53,7 +56,7 @@ export default function UserPage() {
 	useEffect(() => {
 		call('/id', 'GET')
 			.then(res => res.json())
-			.then((res:UserDTO) => {
+			.then((res: UserDTO) => {
 				setId(res.id)
 			})
 	}, [])

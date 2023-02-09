@@ -14,6 +14,7 @@ import styles from './RegisterPage.module.scss'
 import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
+import crypto from 'crypto-js'
 const cx = classnames.bind(styles)
 
 function Copyright(props: any) {
@@ -60,7 +61,6 @@ export default function SignUp() {
 			setPasswordErrorMessage('비밀번호가 비어있습니다!')
 			valid = false
 		} else if (password.toString().match(/^[A-Za-z0-9]{8,20}$/) === null) {
-			console.log(password.toString())
 			setPasswordError(true)
 			setPasswordErrorMessage('비밀번호는 영문 숫자를 조합해 8자리 이상이어야 합니다!')
 			valid = false
@@ -74,8 +74,10 @@ export default function SignUp() {
 			setPasswordCheckErrorMessage('비밀번호가 일치하지 않습니다!')
 			valid = false
 		}
+
 		if (valid) {
-			const body = { id, password }
+			const pw = crypto.SHA512(password!.toString()).toString()
+			const body = { id, password: pw }
 			call('/register', 'POST', undefined, body, true).then(res => {
 				if (res.status === StatusCodes.BAD_REQUEST) {
 					setIdError(true)

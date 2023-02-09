@@ -16,6 +16,7 @@ import styles from './LoginPage.module.scss'
 import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
+import crypto from 'crypto-js'
 const cx = classnames.bind(styles)
 
 function Copyright(props: any) {
@@ -60,7 +61,8 @@ export default function SignIn() {
 			valid = false
 		}
 		if (valid) {
-			const body = { id, password }
+			const pw = crypto.SHA512(password!.toString()).toString()
+			const body = { id, password: pw }
 			call('/login', 'POST', undefined, body, true, false).then(res => {
 				if (res.status === StatusCodes.UNAUTHORIZED) {
 					setIdError(true)
