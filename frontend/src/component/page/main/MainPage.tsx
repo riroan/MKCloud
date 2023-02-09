@@ -53,6 +53,7 @@ export default function MainPage() {
 				<Button variant="contained" onClick={() => setOpen(true)}>
 					업로드
 				</Button>
+				<div className={cx('desc')}>좌클릭으로 다운로드하고 우클릭으로 파일삭제</div>
 			</div>
 			<ItemTable />
 			{open && <UploadModal setOpen={setOpen} used={used} capacity={capacity} />}

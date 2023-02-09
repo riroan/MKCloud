@@ -26,9 +26,15 @@
 	margin: 10px auto;
 	display: flex;
 	flex-direction: row-reverse;
+	align-items: center;
 }
 
 .group > Button {
 	margin: 10px;
 	width: 100px;
+}
+
+.desc{
+	color: #555;
+	margin-right: 20px;
 }

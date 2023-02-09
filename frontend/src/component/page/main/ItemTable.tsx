@@ -22,6 +22,14 @@ export default function ItemTable() {
 				{data.map((value, ix) => (
 					<a key={ix} href={`${URL}/file/download/${value.id}`}>
 						<FileItem
+							onContextMenu={(e: React.MouseEvent<HTMLElement>) => {
+								e.preventDefault()
+								call(`/file/${value.id}`, 'DELETE').then(res => {
+									data.splice(ix, 1)
+									setData([...data])
+									console.log('deleted')
+								})
+							}}
 							className={cx('item')}
 							id={ix + 1}
 							fileName={value.fileName}
@@ -33,7 +41,6 @@ export default function ItemTable() {
 				))}
 				<div className={cx('scroll')}></div>
 			</div>
-			
 		</div>
 	)
 }

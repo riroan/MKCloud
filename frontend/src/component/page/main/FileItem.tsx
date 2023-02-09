@@ -11,11 +11,12 @@ type FileItemProps = {
 	uploadTime: string
 	className?: string
 	onClick?: (e: React.MouseEvent<HTMLElement>) => void
+	onContextMenu?: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-export default function FileItem({ id, fileName, fileSize, owner, uploadTime, className, onClick }: FileItemProps) {
+export default function FileItem({ id, fileName, fileSize, owner, uploadTime, className, onClick, onContextMenu }: FileItemProps) {
 	return (
-		<div onClick={onClick} className={cx('container', className)}>
+		<div onClick={onClick} onContextMenu={onContextMenu} className={cx('container', className)}>
 			<div className={cx('id', 'text')}>{id}</div>
 			<div className={cx('fileName', 'text')}>{fileName}</div>
 			<div className={cx('fileSize', 'text')}>{fileSize}</div>
