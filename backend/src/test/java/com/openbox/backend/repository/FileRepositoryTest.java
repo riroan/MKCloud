@@ -23,8 +23,8 @@ class FileRepositoryTest {
 
     @AfterEach
     void afterEach() {
-        if (fileRepository instanceof MemoryFileRepository){
-            ((MemoryFileRepository)fileRepository).clearStore();
+        if (fileRepository instanceof MemoryFileRepository) {
+            ((MemoryFileRepository) fileRepository).clearStore();
         }
     }
 
@@ -84,13 +84,34 @@ class FileRepositoryTest {
 
     @Test
     @DisplayName(value = "파일 하나 삭제")
-    void deleteOne(){
+    void deleteOne() {
         FileEntity file1 = new FileEntity("file1.jpg", "store_file1.jpg", 10L, "user1");
         FileEntity savedFile = fileRepository.save(file1);
 
         fileRepository.deleteById(savedFile.getId());
 
-        assertThatThrownBy(()->fileRepository.findById(savedFile.getId()))
+        assertThatThrownBy(() -> fileRepository.findById(savedFile.getId()))
                 .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    @DisplayName(value = "파일 사용량 확인")
+    void getFileSizeSum() {
+        FileEntity file1 = new FileEntity("file1.jpg", "store_file1.jpg", 10L, "user1");
+        FileEntity file2 = new FileEntity("file2.jpg", "store_file2.jpg", 20L, "user2");
+        FileEntity file3 = new FileEntity("file3.jpg", "store_file3.jpg", 30L, "user1");
+        FileEntity file4 = new FileEntity("file4.jpg", "store_file4.jpg", 40L, "user2");
+        FileEntity file5 = new FileEntity("file5.jpg", "store_file5.jpg", 50L, "user2");
+        FileEntity file6 = new FileEntity("file6.jpg", "store_file6.jpg", 60L, "user1");
+
+        fileRepository.save(file1);
+        fileRepository.save(file2);
+        fileRepository.save(file3);
+        fileRepository.save(file4);
+        fileRepository.save(file5);
+        fileRepository.save(file6);
+
+        assertThat(fileRepository.getFileSizeSum("user1")).isEqualTo(100L);
+        assertThat(fileRepository.getFileSizeSum("user2")).isEqualTo(110L);
     }
 }
