@@ -15,6 +15,7 @@ import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
 import crypto from 'crypto-js'
+import { passwordRegex } from '../../_config/config'
 const cx = classnames.bind(styles)
 
 function Copyright(props: any) {
@@ -60,9 +61,9 @@ export default function SignUp() {
 			setPasswordError(true)
 			setPasswordErrorMessage('비밀번호가 비어있습니다!')
 			valid = false
-		} else if (password.toString().match(/^[A-Za-z0-9]{8,20}$/) === null) {
+		} else if (password.toString().match(passwordRegex) === null) {
 			setPasswordError(true)
-			setPasswordErrorMessage('비밀번호는 영문 숫자를 조합해 8자리 이상이어야 합니다!')
+			setPasswordErrorMessage('비밀번호는 영문 숫자 특수문자를 조합해 8자리 이상이어야 합니다!')
 			valid = false
 		}
 		if (!passwordCheck) {

@@ -10,6 +10,7 @@ import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import Template from '../../template/Template'
 import UserDTO from '../../dto/UserDTO'
+import { passwordRegex } from '../../_config/config'
 import crypto from 'crypto-js'
 
 const cx = classnames.bind(styles)
@@ -32,6 +33,10 @@ export default function UserPage() {
 		if (!password) {
 			setPasswordError(true)
 			setPasswordErrorMessage('비밀번호가 비어있습니다!')
+			valid = false
+		} else if (password.toString().match(passwordRegex) === null) {
+			setPasswordError(true)
+			setPasswordErrorMessage('비밀번호는 영문 숫자 특수문자를 조합해 8자리 이상이어야 합니다!')
 			valid = false
 		}
 		if (!passwordCheck) {
