@@ -31,6 +31,9 @@ public class LoginController {
         if (!memberService.checkLoginInfo(id, password)) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+        if (memberService.isPending(id)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         String token = memberService.createToken(id);
         Cookie cookie = new Cookie("mkcloud_authentication", token);
         log.info("token={}", token);
@@ -43,8 +46,6 @@ public class LoginController {
     public ResponseEntity<Void> register(@RequestBody LoginRequest loginRequest) {
         String id = loginRequest.getId();
         String password = loginRequest.getPassword();
-        log.info(id);
-        log.info(password);
         try {
             memberService.register(id, password);
         } catch (RuntimeException e) {

@@ -84,7 +84,7 @@ export default function SignUp() {
 					setIdErrorMessage('이미 존재하는 아이디입니다!')
 					return
 				}
-				console.log('회원가입 성공!')
+				alert('회원가입 요청이 성공적으로 전송되었습니다. 관리자 승인 후 서비스를 이용할 수 있습니다.')
 				window.location.href = '/login'
 			})
 		}

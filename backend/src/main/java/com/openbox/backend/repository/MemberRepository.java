@@ -11,5 +11,7 @@ public interface MemberRepository {
 
     Boolean checkLoginInfo(String id, String password);
 
+    Boolean isPending(String id);
+
     void changePassword(String id, String password);
 }

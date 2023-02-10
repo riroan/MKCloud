@@ -45,4 +45,10 @@ public class JpaMemberRepository implements MemberRepository{
         findMember.setPassword(password);
         jpaMemberDao.save(findMember);
     }
+
+    @Override
+    public Boolean isPending(String id) {
+        MemberEntity findMember = jpaMemberDao.findById(id).orElseThrow();
+        return findMember.getPending();
+    }
 }

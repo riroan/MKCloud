@@ -72,6 +72,10 @@ export default function SignIn() {
 					setLoginError(true)
 					return
 				}
+				if (res.status === StatusCodes.BAD_REQUEST) {
+					alert('관리자 승인 대기중인 아이디입니다.')
+					return
+				}
 				window.location.href = '/'
 			})
 		}
@@ -103,7 +107,6 @@ export default function SignIn() {
 						<br />
 						{loginError && <span className={cx('error')}>로그인 정보가 일치하지 않습니다.</span>}
 						<br />
-						<FormControlLabel control={<Checkbox value="remember" color="primary" />} label="자동로그인" />
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							로그인
 						</Button>

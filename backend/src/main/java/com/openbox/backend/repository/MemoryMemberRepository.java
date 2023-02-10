@@ -55,4 +55,9 @@ public class MemoryMemberRepository implements MemberRepository {
     public void changePassword(String id, String password) {
 
     }
+
+    @Override
+    public Boolean isPending(String id) {
+        return false;
+    }
 }

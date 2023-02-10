@@ -24,10 +24,12 @@ public class MemberEntity {
     String password;
 
     Long capacity;
+    Boolean pending;
 
     public MemberEntity(String id, String password) {
         this.id = id;
         this.password = password;
         this.capacity = 1024 * 1024 * 1024 * 10L;
+        this.pending = true;
     }
 }

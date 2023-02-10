@@ -32,6 +32,10 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
+    public Boolean isPending(String id) {
+        return memberRepository.isPending(id);
+    }
+
     public Boolean checkLoginInfo(String id, String password) {
         String encryptedPassword = encrypt(password);
         return memberRepository.checkLoginInfo(id, encryptedPassword);
@@ -60,7 +64,6 @@ public class MemberService {
             log.info("그런 알고리즘은 없습니다.");
             log.error("error", e);
         }
-        log.info("hashed : {}", sb.toString());
         return sb.toString();
     }
 }
