@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/MKCloud/static/css/main.901b2297.css",
+    "main.js": "/MKCloud/static/js/main.3b676686.js",
+    "static/js/787.cda612ba.chunk.js": "/MKCloud/static/js/787.cda612ba.chunk.js",
+    "index.html": "/MKCloud/index.html",
+    "main.901b2297.css.map": "/MKCloud/static/css/main.901b2297.css.map",
+    "main.3b676686.js.map": "/MKCloud/static/js/main.3b676686.js.map",
+    "787.cda612ba.chunk.js.map": "/MKCloud/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.901b2297.css",
+    "static/js/main.3b676686.js"
+  ]
+}
