@@ -1,4 +1,4 @@
-name: Deploy
+name: Frontend Deploy
 on:
   push:
     branches:
@@ -27,7 +27,7 @@ jobs:
           cd frontend
           pwd
           yarn install
-          ls -al
+          yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
