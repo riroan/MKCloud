@@ -1,0 +1,36 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: check path
+        run: |
+          pwd
+          ls -al
+
+      - name: Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          pwd
+          yarn install
+          ls -al
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{secrets.GH_TOKEN}}
+          publish_dir: ./frontend/build
