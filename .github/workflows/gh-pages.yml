@@ -28,6 +28,9 @@ jobs:
           pwd
           yarn install
           yarn build
+        env:
+          REACT_APP_URL: ${{secrets.REACT_APP_URL}}
+          REACT_APP_SECRET: ${{secrets.REACT_APP_SECRET}}
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
