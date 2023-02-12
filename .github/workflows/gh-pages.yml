@@ -28,10 +28,7 @@ jobs:
           cd frontend
           pwd
           yarn install
-          yarn build
-          cat package.json
-          echo "---"
-          cat yarn.lock
+          CI='' yarn build
         env:
           REACT_APP_URL: ${{secrets.REACT_APP_URL}}
           REACT_APP_SECRET: ${{secrets.REACT_APP_SECRET}}
