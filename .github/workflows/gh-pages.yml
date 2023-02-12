@@ -30,6 +30,7 @@ jobs:
           yarn install
           yarn build
           cat package.json
+          echo "---"
           cat yarn.lock
         env:
           REACT_APP_URL: ${{secrets.REACT_APP_URL}}
