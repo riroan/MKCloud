@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import styles from './UploadModal.module.scss'
 import classnames from 'classnames/bind'
 import { Button, Stack } from '@mui/material'
-import call, { convertFileSize } from '../../utility/utility'
+import { convertFileSize } from '../../utility/utility'
 import URL from '../../_config/config'
 const cx = classnames.bind(styles)
 
