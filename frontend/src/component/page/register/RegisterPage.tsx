@@ -16,6 +16,7 @@ import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
 import crypto from 'crypto-js'
 import { passwordRegex } from '../../_config/config'
+import { useNavigate } from 'react-router-dom'
 const cx = classnames.bind(styles)
 
 function Copyright(props: any) {
@@ -34,6 +35,7 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function SignUp() {
+	const movePage = useNavigate()
 	const [idError, setIdError] = useState(false)
 	const [passwordError, setPasswordError] = useState(false)
 	const [passwordCheckError, setPasswordCheckError] = useState(false)
@@ -86,7 +88,7 @@ export default function SignUp() {
 					return
 				}
 				alert('회원가입 요청이 성공적으로 전송되었습니다. 관리자 승인 후 서비스를 이용할 수 있습니다.')
-				window.location.href = '/login'
+				movePage('/login')
 			})
 		}
 	}

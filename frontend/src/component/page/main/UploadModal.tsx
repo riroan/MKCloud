@@ -5,6 +5,7 @@ import classnames from 'classnames/bind'
 import { Button, Stack } from '@mui/material'
 import { convertFileSize } from '../../utility/utility'
 import URL from '../../_config/config'
+import { useNavigate } from 'react-router-dom'
 const cx = classnames.bind(styles)
 
 type UploadModalProps = {
@@ -14,6 +15,7 @@ type UploadModalProps = {
 }
 
 export default function UploadModal({ setOpen, used, capacity }: UploadModalProps) {
+	const movePage = useNavigate()
 	const { acceptedFiles, getRootProps, getInputProps } = useDropzone()
 	const [files, setFiles] = useState<File[]>([])
 	const [error, setError] = useState(false)
@@ -63,7 +65,7 @@ export default function UploadModal({ setOpen, used, capacity }: UploadModalProp
 			}).then(res => {
 				alert('파일 전송이 완료되었습니다.')
 				setOpen(false)
-				window.location.href = '/'
+				movePage('/')
 			})
 		}
 	}

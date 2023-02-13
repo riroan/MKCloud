@@ -15,6 +15,7 @@ import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
 import crypto from 'crypto-js'
+import { useNavigate } from 'react-router-dom'
 const cx = classnames.bind(styles)
 
 function Copyright(props: any) {
@@ -33,6 +34,7 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function SignIn() {
+	const movePage = useNavigate()
 	const [idError, setIdError] = useState(false)
 	const [passwordError, setPasswordError] = useState(false)
 	const [idErrorMessage, setIdErrorMessage] = useState('')
@@ -74,7 +76,7 @@ export default function SignIn() {
 					alert('관리자 승인 대기중인 아이디입니다.')
 					return
 				}
-				window.location.href = '/'
+				movePage('/')
 			})
 		}
 	}

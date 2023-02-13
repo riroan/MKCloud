@@ -12,10 +12,12 @@ import Template from '../../template/Template'
 import UserDTO from '../../dto/UserDTO'
 import { passwordRegex } from '../../_config/config'
 import crypto from 'crypto-js'
+import { useNavigate } from 'react-router-dom'
 
 const cx = classnames.bind(styles)
 
 export default function UserPage() {
+	const movePage = useNavigate()
 	const [id, setId] = useState('')
 	const [passwordError, setPasswordError] = useState(false)
 	const [passwordCheckError, setPasswordCheckError] = useState(false)
@@ -52,7 +54,7 @@ export default function UserPage() {
 			const pw = crypto.SHA512(password!.toString()).toString()
 			const body = { password: pw }
 			call('/password', 'POST', undefined, body, true).then(res => {
-				window.location.href = '/user'
+				movePage('/user')
 				alert('비밀번호가 변경되었습니다.')
 			})
 		}
