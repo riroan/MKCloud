@@ -19,7 +19,7 @@ export default function SideMenu({ className }: SideMenuProps) {
 	const MenuElement = [{ name: 'Drive', icon: <StorageIcon />, link: '/' }]
 	const UserElement = [{ name: 'My Page', icon: <PersonIcon />, link: '/user' }]
 	const handleLogout = () => {
-		call('/logout', 'POST', undefined, undefined, undefined, true)
+		call('/logout', 'POST', undefined, undefined, undefined, movePage)
 			.then(res=>movePage('/login'))
 	}
 	return (

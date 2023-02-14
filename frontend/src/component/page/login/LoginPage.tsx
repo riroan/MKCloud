@@ -63,7 +63,7 @@ export default function SignIn() {
 		if (valid) {
 			const pw = crypto.SHA512(password!.toString()).toString()
 			const body = { id, password: pw }
-			call('/login', 'POST', undefined, body, true, false).then(res => {
+			call('/login', 'POST', undefined, body, true, movePage).then(res => {
 				if (res.status === StatusCodes.UNAUTHORIZED) {
 					setIdError(true)
 					setPasswordError(true)

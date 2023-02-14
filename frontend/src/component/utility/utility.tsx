@@ -1,7 +1,8 @@
 import URL from '../_config/config'
 import { StatusCodes } from 'http-status-codes'
+import { NavigateFunction } from 'react-router-dom'
 
-export default async function call(api: string, method: string, headers?: HeadersInit, request?: Object, json?: boolean, redirect = true) {
+export default async function call(api: string, method: string, headers?: HeadersInit, request?: Object, json?: boolean, redirect?: NavigateFunction) {
 	const url = URL + api
 	const credentials = 'include'
 	let body = undefined
@@ -21,7 +22,7 @@ export default async function call(api: string, method: string, headers?: Header
 			const code = res.status
 			if (code === StatusCodes.UNAUTHORIZED && redirect) {
 				alert('로그인이 필요한 서비스입니다.')
-				window.location.href = `/login`
+				redirect('/login')
 			}
 			return res
 		})
@@ -32,7 +33,7 @@ export default async function call(api: string, method: string, headers?: Header
 }
 
 export function convertFileSize(size: number) {
-	if (size === undefined || size === null) return "0.00byte"
+	if (size === undefined || size === null) return '0.00byte'
 	let ix = 0
 	const unit = ['byte', 'KB', 'MB', 'GB']
 	while (size >= 1024) {
