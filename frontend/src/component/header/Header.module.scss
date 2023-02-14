@@ -1,9 +1,15 @@
+@import '../_config/config.scss';
+
 .header {
+    @include mobile{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
 	background-color: #1976d2;
 	color: white;
 	padding: 20px;
     height: 30px;
-
 }
 
 .title {

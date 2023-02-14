@@ -1,15 +1,20 @@
+@import '../_config/config.scss';
+
 .side {
-	width: 250px;
+	@include desktop {
+		width: 250px;
+	}
 }
 
 .container {
 	display: flex;
 }
 
-.main{
-    position:fixed;
-    width: calc(100% - 250px);
-    left: 250px;
-    // background-color: aqua;
-    height:100%;
+.main {
+	@include desktop {
+		position: fixed;
+		width: calc(100% - 250px);
+		left: 250px;
+		height: 100%;
+	}
 }

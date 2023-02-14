@@ -1,3 +1,5 @@
+@import '../../_config/config.scss';
+
 .progress {
 	display: flex;
 	margin: 10px 20px;
@@ -12,12 +14,12 @@
 }
 
 .usage {
-	width: 70px;
-	margin-right: 10px;
+	width: 100px;
 }
 
 .progressbar {
 	margin-right: 20px;
+	margin-left: 10px;
 	width: 100%;
 }
 
@@ -34,7 +36,10 @@
 	width: 100px;
 }
 
-.desc{
+.desc {
+	@include mobile {
+		display: none;
+	}
 	color: #555;
 	margin-right: 20px;
 }

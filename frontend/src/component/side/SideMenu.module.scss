@@ -1,9 +1,16 @@
+@import '../_config/config.scss';
+
 .container {
-	position: fixed;
-	height: 100%;
-	overflow: hidden;
-	box-sizing: border-box;
-	border-right: 1px solid black;
+	@include mobile {
+		display: none;
+	}
+	@include desktop {
+		position: fixed;
+		height: 100%;
+		overflow: hidden;
+		box-sizing: border-box;
+		border-right: 1px solid black;
+	}
 }
 
 .service {
@@ -21,13 +28,13 @@
 	height: 40px;
 }
 
-.text{
+.text {
 	font-size: 16px;
 	font-weight: 700;
 }
 
 .box {
-	position:absolute;
+	position: absolute;
 	width: 100%;
-	bottom:80px;
+	bottom: 80px;
 }
