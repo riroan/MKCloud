@@ -1,18 +1,30 @@
 @import '../_config/config.scss';
 
 .header {
-    @include mobile{
-        display:flex;
-        align-items: center;
-        justify-content: center;
-    }
+	@include mobile {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	background-color: #1976d2;
 	color: white;
 	padding: 20px;
-    height: 30px;
+	height: 30px;
 }
 
 .title {
-    font-size: 1.5em;
-    font-weight: 700;
+	font-size: 1.5em;
+	font-weight: 700;
+    @include mobile{
+        width: 90%;
+    }
+}
+
+.icon {
+	@include desktop {
+		display: none;
+	}
+    @include mobile{
+
+    }
 }

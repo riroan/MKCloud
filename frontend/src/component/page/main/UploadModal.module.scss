@@ -23,11 +23,19 @@
 	border-radius: 10px;
 	position: fixed;
 	z-index: 1;
-	top: 15%;
-	left: 15%;
+	@include desktop {
+		top: 15%;
+		left: 15%;
+		width: 70%;
+		height: 70%;
+	}
+	@include mobile {
+		top: 5%;
+		left: 3%;
+		width: 94%;
+		height: 90%;
+	}
 	background-color: white;
-	width: 70%;
-	height: 70%;
 }
 
 .title {
