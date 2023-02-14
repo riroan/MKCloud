@@ -1,11 +1,15 @@
+@import '../../_config/config.scss';
+
 .container {
-	display: flex;
 	font-size: 17px;
 	padding: 15px;
-	height: 20px;
+	@include desktop {
+		height: 20px;
+		display: flex;
+	}
 }
 
-.text{
+.text {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -17,21 +21,50 @@
 }
 
 .id {
-	width: 5%;
+	@include desktop {
+		width: 5%;
+	}
+	@include mobile {
+		display: none;
+	}
 }
 
 .fileName {
-	width: 55%;
+	@include desktop {
+		width: 55%;
+	}
+	@include mobile {
+		font-size: 20px;
+		padding: 5px;
+	}
 }
 
 .fileSize {
-	width: 10%;
+	@include desktop {
+		width: 10%;
+	}
+	@include mobile {
+		text-align: right;
+		padding-right: 20px;
+	}
 }
 
 .owner {
-	width: 10%;
+	@include desktop {
+		width: 10%;
+	}
+	@include mobile {
+		text-align: right;
+		padding-right: 20px;
+	}
 }
 
 .uploadTime {
-	width: 20%;
+	@include desktop {
+		width: 20%;
+	}
+	@include mobile {
+		text-align: right;
+		padding-right: 20px;
+	}
 }

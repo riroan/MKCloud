@@ -1,3 +1,5 @@
+@import '../../_config/config.scss';
+
 .container {
 	position: fixed;
 	z-index: 999;
@@ -49,7 +51,7 @@
 	margin-top: 2%;
 	height: 65%;
 	border: 4px dashed #aaa;
-	overflow-y:overlay;
+	overflow-y: overlay;
 }
 
 .input:hover {
@@ -63,7 +65,9 @@
 	width: 100%;
 	background-color: #eee;
 	height: 100%;
-	font-size: 25px;
+	@include desktop {
+		font-size: 25px;
+	}
 }
 
 .group {
@@ -73,8 +77,10 @@
 }
 
 .button {
-	width: 200px;
-	height: 50px;
+	@include desktop {
+		width: 200px;
+		height: 50px;
+	}
 }
 
 .item {

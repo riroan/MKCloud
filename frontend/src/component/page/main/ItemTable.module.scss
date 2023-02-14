@@ -1,13 +1,32 @@
+@import '../../_config/config.scss';
+
 .container {
-	width: 90%;
-	margin: 0 auto;
+	@include mobile {
+		width: 100%;
+		border-top: 1px solid black;
+	}
+	@include desktop {
+		width: 90%;
+		margin: 0 auto;
+	}
 }
 
 .item {
-	border-bottom: 1px solid black;
+	@include mobile {
+		border-bottom: 1px solid black;
+	}
+	@include desktop {
+		border-bottom: 1px solid black;
+	}
 }
 
-.item:not(.title):hover{
+.item.title {
+	@include mobile {
+		display: none;
+	}
+}
+
+.item:not(.title):hover {
 	background-color: #ddd;
 }
 
@@ -19,10 +38,16 @@
 }
 
 .box {
-	position: relative;
+	@include desktop {
+
+		border-right: 1px solid #999;
+		border-left: 1px solid #999;
+		border-bottom: 1px solid #999;
+	}
+	// @include mobile {
+	// 	height: 100%;
+	// }
 	height: 70vh;
-	border-right: 1px solid #999;
-	border-left: 1px solid #999;
-	border-bottom: 1px solid #999;
+	position: relative;
 	overflow-y: overlay;
 }
