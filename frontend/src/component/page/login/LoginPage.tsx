@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
-import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -15,21 +14,8 @@ import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
 import crypto from 'crypto-js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 const cx = classnames.bind(styles)
-
-function Copyright(props: any) {
-	return (
-		<Typography variant="body2" color="text.secondary" align="center" {...props}>
-			{'Copyright © '}
-			<Link color="inherit" href="https://mui.com/">
-				Your Website
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	)
-}
 
 const theme = createTheme()
 
@@ -112,14 +98,13 @@ export default function SignIn() {
 						</Button>
 						<Grid container justifyContent="flex-end">
 							<Grid item>
-								<Link href="/register" variant="body2">
+								<Link to="/register" className={cx('link')}>
 									아이디가 없으십니까?
 								</Link>
 							</Grid>
 						</Grid>
 					</Box>
 				</Box>
-				<Copyright sx={{ mt: 8, mb: 4 }} />
 			</Container>
 		</ThemeProvider>
 	)
