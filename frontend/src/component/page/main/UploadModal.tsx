@@ -65,7 +65,7 @@ export default function UploadModal({ setOpen, used, capacity }: UploadModalProp
 			}).then(res => {
 				alert('파일 전송이 완료되었습니다.')
 				setOpen(false)
-				movePage('/')
+				window.location.reload()
 			})
 		}
 	}
