@@ -1,6 +1,10 @@
 $mobile_max: 599px;
 $desktop_min: 600px;
 
+body{
+	font-family: 'Pretendard', serif;
+}
+
 @mixin mobile {
 	@media (max-width: $mobile_max) {
 		@content;
