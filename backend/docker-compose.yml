@@ -6,6 +6,8 @@ services:
       - '${PORT}:8080'
     volumes:
       - ${BOX_PATH}:/app/box
+    environment:
+      - TZ=Asia/Seoul
     env_file:
       - ./backend.env
   mydb:
