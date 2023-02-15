@@ -13,7 +13,14 @@ UX에 특화된 사용하기 편리한 클라우드 서비스
 
 회원가입 남용을 방지하기 위해 관리자의 승인이 있어야 서비스를 이용할 수 있다.
 
+## Feature
+
+- 자동 로그인 기간이 길다.
+
+- 원클릭 다운로드, 삭제, 업로드
+
 ## Architecture
+
 <img src="./images/architecture.png" width="600">
 
 ## Demo
