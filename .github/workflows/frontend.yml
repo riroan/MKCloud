@@ -21,7 +21,6 @@ jobs:
       - name: Install Dependencies
         run: |
           cd frontend
-          pwd
           yarn install
           CI='' yarn build
         env:
