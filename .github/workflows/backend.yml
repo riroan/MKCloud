@@ -19,5 +19,6 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             cd MKCloud/backend
+            git pull
             ./down.sh
             ./run.sh
