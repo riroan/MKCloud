@@ -62,3 +62,7 @@ sketch
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,java,react
+
+# 실행파일, 환경변수
+*.sh
+*.env
