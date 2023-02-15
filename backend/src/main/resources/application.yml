@@ -1,6 +1,23 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: ${MAX_FILE_SIZE}
+      max-request-size: ${MAX_REQUEST_SIZE}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
-    username:
-    password:
+    url: jdbc:mysql://mydb:3306/mkcloud
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  sql:
+    init:
+      schema-locations: classpath:db/schema.sql
+file:
+  dir: /app/box/
+encrypt:
+  algorithm: ${SECRET_ALGORITHM}
+
+security:
+  jwt:
+    token:
+      secret-key: ${TOKEN_SECRET}
+      expire-length: ${EXPIRE_LENGTH}
