@@ -1,0 +1,10 @@
+file:
+  dir: /fakePath
+  capacity: 0L
+encrypt:
+  algorithm: SHA-256
+security:
+  jwt:
+    token:
+      secret-key: fakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecretfakeSecret
+      expire-length: 1000
