@@ -1,7 +1,6 @@
 # MKCloud
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/riroan/MKCloud&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/riroan/MKCloud)
-![GitHub last commit](https://img.shields.io/github/last-commit/riroan/MKCloud)
 ![Lines of code](https://img.shields.io/tokei/lines/github/riroan/MKCloud)
 
 <img src="https://img.shields.io/badge/Spring-6DB33?style=flat&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/Github%20Actions-2088FF?style=flat&logo=Github%20Actions&logoColor=white"/> <img src="https://img.shields.io/badge/Oracle%20Cloud-F80000?style=flat&logo=Oracle&logoColor=white"/> <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=white"/>
