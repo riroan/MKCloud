@@ -15,16 +15,16 @@
 .title {
 	font-size: 1.5em;
 	font-weight: 700;
-    @include mobile{
-        width: 90%;
-    }
+	@include mobile {
+		width: 90%;
+	}
 }
 
 .icon {
 	@include desktop {
-		display: none;
+		position: fixed;
+		left: 100vw;
 	}
-    @include mobile{
-
-    }
+	@include mobile {
+	}
 }
