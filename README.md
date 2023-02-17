@@ -22,6 +22,10 @@ UX에 특화된 사용하기 편리한 클라우드 서비스
 
 <img src="./images/architecture.png" width="600">
 
+## Contributer
+
+- [wonjinYi](https://github.com/wonjinYi)
+
 ## Demo
 
 메인화면
