@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import LoginPage from './component/page/login/LoginPage'
 import MainPage from './component/page/main/MainPage'
 import RegisterPage from './component/page/register/RegisterPage'
+import TrashPage from './component/page/trash/TrashPage'
 import UserPage from './component/page/user/UserPage'
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegisterPage />} />
 					<Route path="/" element={<MainPage />} />
+					<Route path="/trash" element={<TrashPage />} />
 					<Route path="/user" element={<UserPage />} />
 				</Routes>
 			</Router>

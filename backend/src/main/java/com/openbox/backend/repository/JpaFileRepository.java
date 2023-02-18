@@ -4,11 +4,13 @@ import com.openbox.backend.domain.FileEntity;
 import com.openbox.backend.repository.dao.JpaFileDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Transactional
 @RequiredArgsConstructor
 public class JpaFileRepository implements FileRepository {
     private final JpaFileDao jpaFileDao;
@@ -38,12 +40,29 @@ public class JpaFileRepository implements FileRepository {
     }
 
     @Override
-    public Long getFileSizeSum(String owner) {
-        return jpaFileDao.getFileSizeSum(owner);
+    public Long getFileSizeSum(String owner, Boolean isDeleted) {
+        return jpaFileDao.getFileSizeSum(owner, isDeleted);
     }
 
     @Override
     public void deleteById(Long id) {
         jpaFileDao.deleteById(id);
+    }
+
+    @Override
+    public List<FileEntity> findByOwner(String owner, Boolean isDeleted) {
+        return jpaFileDao.findByOwner(owner, isDeleted);
+    }
+
+    @Override
+    public void deleteOne(Long id) {
+        FileEntity file = findById(id);
+        file.setIsDeleted(true);
+    }
+
+    @Override
+    public void reviveOne(Long id) {
+        FileEntity file = findById(id);
+        file.setIsDeleted(false);
     }
 }

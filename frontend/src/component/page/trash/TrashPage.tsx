@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import styles from './MainPage.module.scss'
+import styles from './TrashPage.module.scss'
 import classnames from 'classnames/bind'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Template from '../../template/Template'
 import ItemTable from '../common/ItemTable'
-import { Button } from '@mui/material'
 import call, { convertFileSize } from '../../utility/utility'
 import UserDTO from '../../dto/UserDTO'
 import UploadModal from './UploadModal'
@@ -24,13 +23,13 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 	},
 }))
 
-export default function MainPage() {
+export default function TrashPage() {
 	const [capacity, setCapacity] = useState(0)
 	const [used, setUsed] = useState(0)
 	const [open, setOpen] = useState(false)
 
 	React.useEffect(() => {
-		call('/id?isDeleted=false', 'GET')
+		call('/id?isDeleted=true', 'GET')
 			.then(res => res.json())
 			.then((res: UserDTO) => {
 				setCapacity(res.capacity)
@@ -38,7 +37,7 @@ export default function MainPage() {
 			})
 	}, [])
 	return (
-		<Template title="Drive">
+		<Template title="Trash">
 			<div className={cx('progress')}>
 				<Typography className={cx('usage')} variant="body1" color="text.primary">
 					사용량
@@ -50,12 +49,9 @@ export default function MainPage() {
 			</div>
 
 			<div className={cx('group')}>
-				<Button variant="contained" onClick={() => setOpen(true)}>
-					업로드
-				</Button>
-				<div className={cx('desc')}>좌클릭으로 다운로드하고 우클릭은 휴지통으로 보내기</div>
+				<div className={cx('desc')}>좌클릭으로 복구하고 우클릭으로 파일삭제</div>
 			</div>
-			<ItemTable isDeleted={false} />
+			<ItemTable isDeleted={true} />
 			{open && <UploadModal setOpen={setOpen} used={used} capacity={capacity} />}
 		</Template>
 	)

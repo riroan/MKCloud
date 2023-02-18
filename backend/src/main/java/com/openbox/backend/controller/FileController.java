@@ -30,20 +30,15 @@ public class FileController {
     @PostMapping("/save")
     public ResponseEntity<Void> save(@Login String user, List<MultipartFile> multipartFiles) {
         if (multipartFiles == null) {
-            log.info("no files");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        for (MultipartFile multipartFile : multipartFiles) {
-            log.info("file = {}", multipartFile);
         }
         fileService.saveAll(multipartFiles, user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<FileEntity>> getAll(@Login String user) {
-        log.info("user : {}", user);
-        List<FileEntity> result = fileService.findByOwner(user);
+    public ResponseEntity<List<FileEntity>> getAll(@Login String user, @RequestParam Boolean isDeleted) {
+        List<FileEntity> result = fileService.findByOwner(user, isDeleted);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -51,7 +46,7 @@ public class FileController {
     public ResponseEntity<Resource> downloadOne(@Login String user, @PathVariable Long fileId) throws MalformedURLException {
         FileEntity file = fileService.findOne(fileId); // ! TODO :  NoFileException
 
-        if(!file.getOwner().equals(user)){
+        if (!file.getOwner().equals(user)) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
@@ -68,9 +63,20 @@ public class FileController {
                 .body(resource);
     }
 
+    @PostMapping("/revive/{fileId}")
+    public ResponseEntity<Void> reviveOne(@Login String user, @PathVariable Long fileId) {
+        fileService.reviveOne(fileId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/{fileId}")
     public ResponseEntity<Void> deleteOne(@Login String user, @PathVariable Long fileId) {
-        log.info("delete {}", fileId);
+        fileService.deleteOne(fileId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/remove/{fileId}")
+    public ResponseEntity<Void> removeOne(@Login String user, @PathVariable Long fileId) {
         FileEntity file = fileService.findOne(fileId); // ! TODO :  NoFileException
         String storeFileName = file.getStoreFileName();
         String fullPath = fileService.getFullPath(storeFileName, user);
@@ -85,7 +91,7 @@ public class FileController {
         } else {
             log.info("No such file {}", fullPath);
         }
-        fileService.deleteOne(fileId, user);
+        fileService.removeOne(fileId, user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

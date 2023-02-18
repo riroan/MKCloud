@@ -23,9 +23,6 @@ class FileRepositoryTest {
 
     @AfterEach
     void afterEach() {
-        if (fileRepository instanceof MemoryFileRepository) {
-            ((MemoryFileRepository) fileRepository).clearStore();
-        }
     }
 
     @Test
@@ -111,7 +108,23 @@ class FileRepositoryTest {
         fileRepository.save(file5);
         fileRepository.save(file6);
 
-        assertThat(fileRepository.getFileSizeSum("user1")).isEqualTo(100L);
-        assertThat(fileRepository.getFileSizeSum("user2")).isEqualTo(110L);
+        assertThat(fileRepository.getFileSizeSum("user1", false)).isEqualTo(100L);
+        assertThat(fileRepository.getFileSizeSum("user2", false)).isEqualTo(110L);
+    }
+
+    @Test
+    @DisplayName(value = "파일 하나 휴지통으로 보내고 살리기")
+    void goTrash() {
+        FileEntity file1 = new FileEntity("file1.jpg", "store_file1.jpg", 10L, "user1");
+
+        FileEntity file = fileRepository.save(file1);
+        Long id = file.getId();
+        assertThat(file.getIsDeleted()).isEqualTo(false);
+
+        fileRepository.deleteOne(id);
+        assertThat(file.getIsDeleted()).isEqualTo(true);
+
+        fileRepository.reviveOne(id);
+        assertThat(file.getIsDeleted()).isEqualTo(false);
     }
 }
