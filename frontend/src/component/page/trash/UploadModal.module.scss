@@ -1,0 +1,122 @@
+@import '../../_config/config.scss';
+
+.container {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+.layer {
+	position: fixed;
+	z-index: 0;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 100%;
+	height: 100%;
+}
+
+.modal {
+	border-radius: 10px;
+	position: fixed;
+	z-index: 1;
+	
+	display : flex;
+	flex-direction : column;
+	
+	@include desktop {
+		width: 70%;
+		height: 90%;
+	}
+	@include mobile {
+		top: 5%;
+		left: 3%;
+		width: 94%;
+		height: 90%;
+	}
+	background-color: white;
+}
+
+.title {
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #1976d2;
+	height: 10%;
+	display: flex;
+	align-items: center;
+	padding-left: 45px;
+	box-sizing: border-box;
+	font-size: 22px;
+	font-weight: 600;
+	color: white;
+}
+
+.dropzone {
+	width: 94%;
+	margin: 0 auto;
+	margin-top: 2%;
+	height: 65%;
+	border: 4px dashed #aaa;
+	overflow-y: overlay;
+}
+
+.input:hover {
+	cursor: pointer;
+}
+
+.text {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: #eee;
+	height: 100%;
+	@include desktop {
+		font-size: 25px;
+	}
+}
+
+.group {
+	display: flex;
+	margin: 25px;
+	justify-content: center;
+}
+
+.button {
+	@include desktop {
+		width: 200px;
+		height: 50px;
+	}
+}
+
+.item {
+	margin: 5px;
+	padding: 3px;
+	padding-left: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.size {
+	color: #444;
+	font-size: 15px;
+}
+
+.delete {
+	height: 30px;
+}
+
+.error {
+	text-align: center;
+	margin: 15px;
+	color: red;
+	font-size: 17px;
+	height: 20px;
+}

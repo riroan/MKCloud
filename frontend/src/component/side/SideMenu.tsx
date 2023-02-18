@@ -3,6 +3,7 @@ import styles from './SideMenu.module.scss'
 import classnames from 'classnames/bind'
 import MenuItem from './MenuItem'
 import StorageIcon from '@mui/icons-material/Storage'
+import DeleteIcon from '@mui/icons-material/Delete'
 import PersonIcon from '@mui/icons-material/Person'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
@@ -16,11 +17,13 @@ type SideMenuProps = {
 
 export default function SideMenu({ className }: SideMenuProps) {
 	const movePage = useNavigate()
-	const MenuElement = [{ name: 'Drive', icon: <StorageIcon />, link: '/' }]
+	const MenuElement = [
+		{ name: 'Drive', icon: <StorageIcon />, link: '/' },
+		{ name: 'Trash', icon: <DeleteIcon />, link: '/trash' },
+	]
 	const UserElement = [{ name: 'My Page', icon: <PersonIcon />, link: '/user' }]
 	const handleLogout = () => {
-		call('/logout', 'POST', undefined, undefined, undefined, movePage)
-			.then(res=>movePage('/login'))
+		call('/logout', 'POST', undefined, undefined, undefined, movePage).then(res => movePage('/login'))
 	}
 	return (
 		<div className={cx(className, 'container')}>
@@ -39,7 +42,7 @@ export default function SideMenu({ className }: SideMenuProps) {
 			))}
 			<Box className={cx('box')} textAlign="center">
 				<Button onClick={handleLogout} className={cx('logout')} variant="contained" color="error">
-					<span className={ cx('text')}>Logout</span>
+					<span className={cx('text')}>Logout</span>
 				</Button>
 			</Box>
 		</div>

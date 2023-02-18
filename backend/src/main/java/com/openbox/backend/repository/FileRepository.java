@@ -11,9 +11,15 @@ public interface FileRepository {
 
     List<FileEntity> findByOwner(String owner);
 
+    List<FileEntity> findByOwner(String owner, Boolean isDeleted);
+
     List<FileEntity> findAll();
 
-    Long getFileSizeSum(String owner);
+    Long getFileSizeSum(String owner, Boolean isDeleted);
 
     void deleteById(Long id);
+
+    void deleteOne(Long id);
+
+    void reviveOne(Long id);
 }

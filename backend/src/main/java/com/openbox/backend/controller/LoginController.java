@@ -36,7 +36,6 @@ public class LoginController {
         }
         String token = memberService.createToken(id);
         Cookie cookie = new Cookie("mkcloud_authentication", token);
-        log.info("token={}", token);
         cookie.setMaxAge(15 * 24 * 60 * 60 * 1000);
         response.addCookie(cookie);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -56,7 +55,6 @@ public class LoginController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response) {
-        log.info("logout");
         expireCookie(response, "mkcloud_authentication");
         expireCookie(response, "authentication");
         expireCookie(response, "key");
@@ -66,16 +64,15 @@ public class LoginController {
     @PostMapping("/password")
     public ResponseEntity<Void> changePassword(@Login String user, @RequestBody LoginRequest loginRequest) {
         String newPassword = loginRequest.getPassword();
-        log.info("password-> {}", newPassword);
         memberService.changePassword(user, newPassword);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/id")
-    public ResponseEntity<UserResponse> getId(@Login String user) {
+    public ResponseEntity<UserResponse> getId(@Login String user, @RequestParam Boolean isDeleted) {
         UserResponse userResponse = new UserResponse();
         MemberEntity member = memberService.findById(user);
-        Long used = fileService.getFileSum(user);
+        Long used = fileService.getFileSum(user, isDeleted);
         userResponse.setId(user);
         userResponse.setCapacity(member.getCapacity());
         userResponse.setUsed(used);

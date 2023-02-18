@@ -60,7 +60,7 @@ public class FileService {
         }
     }
 
-    public void deleteOne(Long id, String owner) {
+    public void removeOne(Long id, String owner) {
         FileEntity file = fileRepository.findById(id);
         if (file == null) {
             throw new RuntimeException("파일이 존재하지 않습니다.");
@@ -75,16 +75,28 @@ public class FileService {
         return fileRepository.findByOwner(owner);
     }
 
+    public List<FileEntity> findByOwner(String owner, Boolean isDeleted) {
+        return fileRepository.findByOwner(owner, isDeleted);
+    }
+
     public FileEntity findOne(Long id) {
         return fileRepository.findById(id);
+    }
+
+    public void deleteOne(Long id) {
+        fileRepository.deleteOne(id);
+    }
+
+    public void reviveOne(Long id) {
+        fileRepository.reviveOne(id);
     }
 
     public List<FileEntity> findAll() {
         return fileRepository.findAll();
     }
 
-    public Long getFileSum(String owner) {
-        return fileRepository.getFileSizeSum(owner);
+    public Long getFileSum(String owner, Boolean isDeleted) {
+        return fileRepository.getFileSizeSum(owner, isDeleted);
     }
 
     public String getFullPath(String filename, String owner) {

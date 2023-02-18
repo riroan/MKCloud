@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "file")
-public class FileEntity{
+public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
@@ -34,6 +34,9 @@ public class FileEntity{
     @NotNull
     private LocalDateTime uploadTime;
 
+    @NotNull
+    private Boolean isDeleted;
+
     public FileEntity() {
         this.uploadTime = LocalDateTime.now();
     }
@@ -44,5 +47,6 @@ public class FileEntity{
         this.fileSize = fileSize;
         this.owner = owner;
         this.uploadTime = LocalDateTime.now();
+        this.isDeleted = false;
     }
 }
