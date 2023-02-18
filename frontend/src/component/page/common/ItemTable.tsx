@@ -16,7 +16,6 @@ export default function ItemTable({ isDeleted }: ItemTableProps) {
 	const movePage = useNavigate()
 	const [data, setData] = useState<FileDTO[]>([])
 	useEffect(() => {
-		console.log(`/file/all?isDeleted=${isDeleted}`)
 		call(`/file/all?isDeleted=${isDeleted}`, 'GET', undefined, undefined, false, movePage)
 			.then(res => res.json())
 			.then(res => setData(res))
@@ -36,7 +35,8 @@ export default function ItemTable({ isDeleted }: ItemTableProps) {
 									url = `/file/remove/${value.id}`
 								}
 								call(url, 'DELETE').then(res => {
-									window.location.reload()
+									if (isDeleted) movePage('/trash')
+									else window.location.reload()
 									data.splice(ix, 1)
 									setData([...data])
 								})
@@ -44,11 +44,11 @@ export default function ItemTable({ isDeleted }: ItemTableProps) {
 							onClick={
 								isDeleted
 									? (e: React.MouseEvent<HTMLElement>) => {
-										call(`/file/revive/${value.id}`, 'POST').then(res => {
-											window.location.reload()
-											data.splice(ix, 1)
-											setData([...data])
-										})
+											call(`/file/revive/${value.id}`, 'POST').then(res => {
+												data.splice(ix, 1)
+												setData([...data])
+												movePage('/trash')
+											})
 									  }
 									: () => {}
 							}
