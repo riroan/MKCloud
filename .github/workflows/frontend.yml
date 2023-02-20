@@ -10,25 +10,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 16.x
-
-      - name: Install Dependencies
-        run: |
-          cd frontend
-          yarn install
-          CI='' yarn build
-        env:
-          REACT_APP_URL: ${{secrets.REACT_APP_URL}}
-          REACT_APP_SECRET: ${{secrets.REACT_APP_SECRET}}
-
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: appleboy/ssh-action@v0.1.7
         with:
-          github_token: ${{secrets.GH_TOKEN}}
-          publish_dir: ./frontend/build
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd MKCloud/frontend
+            git pull
+            npm run build
