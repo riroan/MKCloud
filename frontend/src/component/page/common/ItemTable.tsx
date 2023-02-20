@@ -5,7 +5,7 @@ import call, { convertFileSize, dateFormat } from '../../utility/utility'
 import FileDTO from '../../dto/FileDTO'
 import URL from '../../_config/config'
 import FileItem from './FileItem'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const cx = classnames.bind(styles)
 
 type ItemTableProps = {
@@ -13,10 +13,9 @@ type ItemTableProps = {
 }
 
 export default function ItemTable({ isDeleted }: ItemTableProps) {
-	const movePage = useNavigate()
 	const [data, setData] = useState<FileDTO[]>([])
 	useEffect(() => {
-		call(`/file/all?isDeleted=${isDeleted}`, 'GET', undefined, undefined, false, movePage)
+		call(`/file/all?isDeleted=${isDeleted}`, 'GET', undefined, undefined, false)
 			.then(res => res.json())
 			.then(res => setData(res))
 	}, [])
@@ -35,7 +34,7 @@ export default function ItemTable({ isDeleted }: ItemTableProps) {
 									url = `/file/remove/${value.id}`
 								}
 								call(url, 'DELETE').then(res => {
-									if (isDeleted) movePage('/trash')
+									if (isDeleted) window.location.href = '/trash'
 									else window.location.reload()
 									data.splice(ix, 1)
 									setData([...data])
@@ -47,7 +46,7 @@ export default function ItemTable({ isDeleted }: ItemTableProps) {
 											call(`/file/revive/${value.id}`, 'POST').then(res => {
 												data.splice(ix, 1)
 												setData([...data])
-												movePage('/trash')
+												window.location.href = '/trash'
 											})
 									  }
 									: () => {}

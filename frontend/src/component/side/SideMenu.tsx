@@ -5,7 +5,7 @@ import MenuItem from './MenuItem'
 import StorageIcon from '@mui/icons-material/Storage'
 import DeleteIcon from '@mui/icons-material/Delete'
 import PersonIcon from '@mui/icons-material/Person'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import { Box } from '@mui/material'
 import call from '../utility/utility'
@@ -16,14 +16,13 @@ type SideMenuProps = {
 }
 
 export default function SideMenu({ className }: SideMenuProps) {
-	const movePage = useNavigate()
 	const MenuElement = [
 		{ name: 'Drive', icon: <StorageIcon />, link: '/' },
 		{ name: 'Trash', icon: <DeleteIcon />, link: '/trash' },
 	]
 	const UserElement = [{ name: 'My Page', icon: <PersonIcon />, link: '/user' }]
 	const handleLogout = () => {
-		call('/logout', 'POST', undefined, undefined, undefined, movePage).then(res => movePage('/login'))
+		call('/logout', 'POST', undefined, undefined, undefined).then(res => (window.location.href = '/login'))
 	}
 	return (
 		<div className={cx(className, 'container')}>
