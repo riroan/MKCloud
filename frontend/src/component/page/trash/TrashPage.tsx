@@ -26,7 +26,6 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 export default function TrashPage() {
 	const [capacity, setCapacity] = useState(0)
 	const [used, setUsed] = useState(0)
-	const [open, setOpen] = useState(false)
 
 	React.useEffect(() => {
 		call('/id?isDeleted=true', 'GET')
@@ -52,7 +51,6 @@ export default function TrashPage() {
 				<div className={cx('desc')}>좌클릭으로 복구하고 우클릭으로 파일삭제</div>
 			</div>
 			<ItemTable isDeleted={true} />
-			{open && <UploadModal setOpen={setOpen} used={used} capacity={capacity} />}
 		</Template>
 	)
 }

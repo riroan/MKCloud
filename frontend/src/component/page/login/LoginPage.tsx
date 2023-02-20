@@ -14,13 +14,12 @@ import classnames from 'classnames/bind'
 import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
 import crypto from 'crypto-js'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const cx = classnames.bind(styles)
 
 const theme = createTheme()
 
 export default function SignIn() {
-	const movePage = useNavigate()
 	const [idError, setIdError] = useState(false)
 	const [passwordError, setPasswordError] = useState(false)
 	const [idErrorMessage, setIdErrorMessage] = useState('')
@@ -49,7 +48,7 @@ export default function SignIn() {
 		if (valid) {
 			const pw = crypto.SHA512(password!.toString()).toString()
 			const body = { id, password: pw }
-			call('/login', 'POST', undefined, body, true, movePage).then(res => {
+			call('/login', 'POST', undefined, body, true).then(res => {
 				if (res.status === StatusCodes.UNAUTHORIZED) {
 					setIdError(true)
 					setPasswordError(true)
@@ -62,7 +61,7 @@ export default function SignIn() {
 					alert('관리자 승인 대기중인 아이디입니다.')
 					return
 				}
-				movePage('/')
+				window.location.href = '/'
 			})
 		}
 	}

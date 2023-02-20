@@ -1,8 +1,7 @@
 import URL from '../_config/config'
 import { StatusCodes } from 'http-status-codes'
-import { NavigateFunction } from 'react-router-dom'
 
-export default async function call(api: string, method: string, headers?: HeadersInit, request?: Object, json?: boolean, redirect?: NavigateFunction) {
+export default async function call(api: string, method: string, headers?: HeadersInit, request?: Object, json?: boolean) {
 	const url = URL + api
 	const credentials = 'include'
 	let body = undefined
@@ -20,9 +19,9 @@ export default async function call(api: string, method: string, headers?: Header
 	})
 		.then(res => {
 			const code = res.status
-			if (code === StatusCodes.UNAUTHORIZED && redirect) {
+			if (code === StatusCodes.UNAUTHORIZED) {
 				alert('로그인이 필요한 서비스입니다.')
-				redirect('/login')
+				window.location.href = "/login"
 			}
 			return res
 		})

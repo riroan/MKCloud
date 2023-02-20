@@ -15,13 +15,12 @@ import call from '../../utility/utility'
 import { StatusCodes } from 'http-status-codes'
 import crypto from 'crypto-js'
 import { passwordRegex } from '../../_config/config'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const cx = classnames.bind(styles)
 
 const theme = createTheme()
 
 export default function SignUp() {
-	const movePage = useNavigate()
 	const [idError, setIdError] = useState(false)
 	const [passwordError, setPasswordError] = useState(false)
 	const [passwordCheckError, setPasswordCheckError] = useState(false)
@@ -74,7 +73,7 @@ export default function SignUp() {
 					return
 				}
 				alert('회원가입 요청이 성공적으로 전송되었습니다. 관리자 승인 후 서비스를 이용할 수 있습니다.')
-				movePage('/login')
+				window.location.href = '/login'
 			})
 		}
 	}
@@ -117,7 +116,7 @@ export default function SignUp() {
 						</Button>
 						<Grid container justifyContent="flex-end">
 							<Grid item>
-								<Link to="/login" className={ cx('link')}>
+								<Link to="/login" className={cx('link')}>
 									이미 아이디가 있으십니까?
 								</Link>
 							</Grid>
