@@ -50,6 +50,7 @@ public class FileService {
         savedFile.setOwner(owner);
         savedFile.setUploadTime(LocalDateTime.now());
         savedFile.setStoreFileName(storeFileName);
+        savedFile.setIsDeleted(false);
 
         fileRepository.save(savedFile);
     }
