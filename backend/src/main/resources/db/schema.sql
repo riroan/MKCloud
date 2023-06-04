@@ -5,6 +5,7 @@ create table file
     store_file_name varchar(255),
     file_size bigint,
     owner varchar(255),
+    is_deleted boolean,
     upload_time datetime,
     primary key (file_id)
 )
